@@ -1,0 +1,160 @@
+swagger: '2.0'
+info:
+  title: 45 Client
+  description: ->
+    This Api defines how the 45 client will recive data from the server
+  version: 1.0.0
+host: localhost #for testing/development
+basePath: /45Client
+schemes:
+  - http
+
+produces:
+  - application/json
+
+consumes:
+  - application/json
+
+paths:
+  /add-card:
+    post:
+      summary: Broadcast, notifies them to add card to their board
+      description: >-
+        Sends requests to all players saved in the game object, telling players to add this 
+        card to thieir board.
+
+      parameters:
+        - name: card
+          in: body
+          schema:
+            $ref: '#/definitions/server-card'
+
+      responses:
+        '200':
+          description: 'Confirmation of sucessful request'
+
+        '400':
+          description: 'Bad Request, required fields not there or badly formed'
+
+        '404':
+          description: 'Service not found'
+
+        '500':
+          description: 'Internal server error'
+
+
+  /end-hand/{playerNo}:
+    post:
+      summary: Broadcast, which player won the hand
+      description: >-
+        Sends request to all players, telling them them that the hand is over and who won that hand 
+        the players will then clear their board, update thier personal scoreboard and reset the game
+        turn, ready for a new hand.
+
+      parameters:
+        - name: playerNo
+          in: path
+          type: integer
+          required: true
+
+      responses:
+        '200':
+          description: 'Confirmation of sucessful request'
+
+        '400':
+          description: 'Bad Request, required fields not there or badly formed'
+
+        '404':
+          description: 'Service not found'
+
+        '500':
+          description: 'Internal server error'
+
+  /end-round:
+    post:
+      summary: Broadcast, gives out a new hand of cards to the players
+      description: >-
+        Once the players have played all the cards in their hand, the round is over and they will be broadcast a new set of cards.
+
+      parameters:
+        - name: newHand
+          in: body
+          schema:
+            $ref: '#/definitions/new-hand'
+
+      responses:
+        '200':
+          description: 'Confirmation of sucessful request'
+
+        '400':
+          description: 'Bad Request, required fields not there or badly formed'
+
+        '404':
+          description: 'Service not found'
+
+        '500':
+          description: 'Internal server error'
+
+  /end-game/{playerNo}:
+    post:
+      summary: Broadcast, which player has won the game
+      description: >-
+        Once one of the players has reached a score of 45, this request signals that the game is over and includes the winning player.
+
+      parameters:
+        - name: playerNo
+          in: path
+          type: integer
+          required: true
+
+      responses:
+        '200':
+          description: 'Confirmation of sucessful request'
+
+        '400':
+          description: 'Bad Request, required fields not there or badly formed'
+
+        '404':
+          description: 'Service not found'
+
+        '500':
+          description: 'Internal server error'
+
+
+
+definitions:
+  server-card:
+    type: object
+    properties:
+      suit:
+        description: 'The suit of the card'
+        example: 'Heart'
+        enum:
+          - Heart
+          - Diamond
+          - Spade
+          - Club
+      number:
+        description: 'The number of the card, A J Q K Joker is 0,11,12,13,14'
+        example: 5
+        type: integer
+
+      power:
+        description: 'The power of the card, based on its suit and number'
+        example: 8
+        type: integer
+
+      player:
+        description: 'The player id of the player who played the card'
+        example: 2
+        type: integer
+
+  new-hand:
+    type: array
+    items:
+      $ref: '#/definitions/server-card'
+
+
+
+
+
