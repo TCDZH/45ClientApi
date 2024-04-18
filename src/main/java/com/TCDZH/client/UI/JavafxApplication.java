@@ -1,5 +1,6 @@
-package com.TCDZH.client;
+package com.TCDZH.client.UI;
 
+import com.TCDZH.client.ClientApplication;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.application.Platform;
@@ -15,7 +16,7 @@ public class JavafxApplication extends Application {
     private ConfigurableApplicationContext context;
 
     @Override
-    public void init() throws Exception {
+    public void init() {
 
         //Registers these 3 things as beans so that they can be referenced/injected into different areas of the code
         ApplicationContextInitializer<GenericApplicationContext> initializer = genericApplicationContext -> {
@@ -42,7 +43,7 @@ public class JavafxApplication extends Application {
     }
 
     //Wrapper for the stage that allows it to be broadcast as an event
-    class StageReadyEvent extends ApplicationEvent {
+     class StageReadyEvent extends ApplicationEvent {
 
         public Stage getStage() {
             return Stage.class.cast(getSource());

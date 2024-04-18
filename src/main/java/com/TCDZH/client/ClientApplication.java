@@ -1,5 +1,6 @@
 package com.TCDZH.client;
 
+import com.TCDZH.client.UI.JavafxApplication;
 import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

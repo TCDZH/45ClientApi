@@ -1,6 +1,7 @@
-package com.TCDZH.client;
+package com.TCDZH.client.controller;
 
 
+import com.TCDZH.client.UI.SimpleUiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestController
 @RequestMapping("/45Client")
-public class SpringController {
+public class SpringControllerLegacy {
 
   @Autowired
   private SimpleUiController controller;
