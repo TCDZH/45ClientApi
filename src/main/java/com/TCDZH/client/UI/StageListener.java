@@ -1,5 +1,6 @@
-package com.TCDZH.client;
+package com.TCDZH.client.UI;
 
+import com.TCDZH.client.UI.JavafxApplication.StageReadyEvent;
 import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StageListener implements ApplicationListener<JavafxApplication.StageReadyEvent> {
+public class StageListener implements ApplicationListener<StageReadyEvent> {
 
     private final String applicationTitle;
     private final Resource fxml;
@@ -27,7 +28,7 @@ public class StageListener implements ApplicationListener<JavafxApplication.Stag
     }
 
     @Override
-    public void onApplicationEvent(JavafxApplication.StageReadyEvent stageReadyEvent) {
+    public void onApplicationEvent(StageReadyEvent stageReadyEvent) {
         try {
             //Listens for the stage ready event to be published (the one that contains the stage)
             //Setting up the stage using the fxml

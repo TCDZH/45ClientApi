@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   title: 45 Client
   description: ->
-    This Api defines how the 45 client will recive data from the server
+    This Api defines how the 45 client will receive data from the server
   version: 1.0.0
 host: localhost #for testing/development
 basePath: /45Client
@@ -18,10 +18,10 @@ consumes:
 paths:
   /add-card:
     post:
-      summary: Broadcast, notifies them to add card to their board
+      summary: Broadcast, notifies clients to add card to their board
       description: >-
         Sends requests to all players saved in the game object, telling players to add this 
-        card to thieir board.
+        card to their board.
 
       parameters:
         - name: card
@@ -31,7 +31,7 @@ paths:
 
       responses:
         '200':
-          description: 'Confirmation of sucessful request'
+          description: 'Confirmation of successful request'
 
         '400':
           description: 'Bad Request, required fields not there or badly formed'
@@ -59,7 +59,7 @@ paths:
 
       responses:
         '200':
-          description: 'Confirmation of sucessful request'
+          description: 'Confirmation of successful request'
 
         '400':
           description: 'Bad Request, required fields not there or badly formed'
@@ -70,13 +70,19 @@ paths:
         '500':
           description: 'Internal server error'
 
-  /end-round:
+  /end-round/{trump}:
     post:
       summary: Broadcast, gives out a new hand of cards to the players
       description: >-
         Once the players have played all the cards in their hand, the round is over and they will be broadcast a new set of cards.
+        They will also be broadcast the suit of the trump card for that round.
 
       parameters:
+        - name: trump
+          in: path
+          type: string
+          required: true
+
         - name: newHand
           in: body
           schema:
@@ -84,7 +90,7 @@ paths:
 
       responses:
         '200':
-          description: 'Confirmation of sucessful request'
+          description: 'Confirmation of successful request'
 
         '400':
           description: 'Bad Request, required fields not there or badly formed'
@@ -109,7 +115,38 @@ paths:
 
       responses:
         '200':
-          description: 'Confirmation of sucessful request'
+          description: 'Confirmation of successful request'
+
+        '400':
+          description: 'Bad Request, required fields not there or badly formed'
+
+        '404':
+          description: 'Service not found'
+
+        '500':
+          description: 'Internal server error'
+
+  /start-game/{trump}/{playerCount}:
+    post:
+      summary: Broadcast, tells clients to start the game
+      description: >-
+        Once all the players have joined the game, this request will put the players on the start screen
+        and tell them the trump for this round.
+
+      parameters:
+        - name: trump
+          in: query
+          type: string
+          required: true
+
+        - name: playerCount
+          in: query
+          type: integer
+          required: true
+
+      responses:
+        '200':
+          description: 'Confirmation of successful request'
 
         '400':
           description: 'Bad Request, required fields not there or badly formed'
@@ -123,17 +160,21 @@ paths:
 
 
 definitions:
+  suit-enum:
+    type: string
+    example: 'Heart'
+    enum:
+      - Heart
+      - Diamond
+      - Spade
+      - Club
+
   server-card:
     type: object
     properties:
       suit:
         description: 'The suit of the card'
-        example: 'Heart'
-        enum:
-          - Heart
-          - Diamond
-          - Spade
-          - Club
+        $ref: '#/definitions/suit-enum'
       number:
         description: 'The number of the card, A J Q K Joker is 0,11,12,13,14'
         example: 5

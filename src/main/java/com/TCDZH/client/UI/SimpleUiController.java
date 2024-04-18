@@ -1,5 +1,6 @@
-package com.TCDZH.client;
+package com.TCDZH.client.UI;
 
+import com.TCDZH.client.service.ClientService;
 import javafx.application.HostServices;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
