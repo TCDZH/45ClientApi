@@ -102,7 +102,7 @@ public class ClientService {
   /**
    * Triggered by a button in the UI start screen, move player to waiting screen with button to start game? need to set player number
    */
-  public void creategame(String gameSize) {
+  public void createGame(String gameSize) {
     String gameId = webClient.post().uri(config.url() + "/create-game/" + gameSize)
         .header("port", clientPort)
         .accept(MediaType.APPLICATION_JSON).acceptCharset(StandardCharsets.UTF_8).retrieve()
@@ -126,7 +126,7 @@ public class ClientService {
         .header("port", clientPort)
         .accept(MediaType.APPLICATION_JSON).acceptCharset(StandardCharsets.UTF_8).retrieve()
         .onStatus(HttpStatus.BAD_REQUEST::equals, clientResponse -> clientResponse.toEntity(String.class)
-            .map(entity -> new GameNotFoundExcecption(entity.getStatusCode().toString() + " " + entity.getBody())))
+            .map(entity -> new GameNotFoundExcecption(entity.getStatusCode() + " " + entity.getBody())))
         .onStatus(HttpStatusCode::is4xxClientError, clientResponse -> clientResponse.toEntity(Void.class)
             .map(entity -> new ServerErrorException(entity.getStatusCode().toString())))
         .onStatus(HttpStatus.INTERNAL_SERVER_ERROR::equals, clientResponse -> clientResponse.toEntity(Void.class)
@@ -134,7 +134,7 @@ public class ClientService {
 
     player.setPlayerNo(Integer.parseInt(playerNo));
 
-    //UI function to move player into wating screen (waiting for players to join message?)
+    //UI function to move player into waiting screen (waiting for players to join message?)
 
   }
 
