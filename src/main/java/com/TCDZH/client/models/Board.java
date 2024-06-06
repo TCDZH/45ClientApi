@@ -58,8 +58,8 @@ public class Board {
       if (card.getSuit() == trump || card.getSuit() == ledCard) {
         playable = true;
       } else {
-        //Iterate through the cards in the players hand, if there is no cards that are led or trump then it is playable
-        playable = playerHand.stream().noneMatch(card1 -> card1.getSuit() == trump || card1.getSuit() == ledCard);
+        //Iterate through the cards in the players hand, if there is no cards that are led then it is playable
+        playable = playerHand.stream().noneMatch(card1 -> card1.getSuit() == ledCard);
       }
     }
     return playable;

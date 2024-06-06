@@ -96,7 +96,7 @@ public class ClientService {
     board.setupScoreBoard(players);
     board.setTrump(trump);
     player.setNewHand(newHand);
-    //UI function to to move from the wait screen to the main screen
+    //UI function to move from the wait screen to the main screen
   }
 
   /**
@@ -150,6 +150,8 @@ public class ClientService {
               .map(entity -> new ServerErrorException(entity.getStatusCode().toString())))
           .onStatus(HttpStatus.INTERNAL_SERVER_ERROR::equals, clientResponse -> clientResponse.toEntity(Void.class)
               .map(entity -> new ServiceException(entity.getStatusCode().toString()))).bodyToMono(String.class).block();
+
+      //UI function to remove the played card from the hand
     }else{
       //UI function to notify the player that this card is not playable.
     }
