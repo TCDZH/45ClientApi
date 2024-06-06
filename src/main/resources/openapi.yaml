@@ -49,7 +49,7 @@ paths:
       description: >-
         Sends request to all players, telling them them that the hand is over and who won that hand 
         the players will then clear their board, update thier personal scoreboard and reset the game
-        turn, ready for a new hand.
+        turn, ready for a new hand. The first player of the next trick is the player who won.
 
       parameters:
         - name: playerNo
@@ -143,6 +143,11 @@ paths:
           in: query
           type: integer
           required: true
+
+        - name: newHand
+          in: body
+          schema:
+            $ref: '#/definitions/new-hand'
 
       responses:
         '200':

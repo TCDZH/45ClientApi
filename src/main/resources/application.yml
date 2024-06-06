@@ -1,0 +1,19 @@
+logging:
+  level:
+    org.springframework: debug
+
+server:
+  port: 8080
+
+spring:
+  application:
+    ui:
+      title: 45Test
+
+server-game-config:
+  protocol: ${45_PROTOCOL:http}
+  host: ${45_HOST:localhost}
+  port: ${45_PORT:8080}
+  url: ${game-config.protocol}://${game-config.host}:${game-config.port}
+
+#Path to be added when the function is called depending on the action taken

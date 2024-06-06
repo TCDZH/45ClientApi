@@ -25,4 +25,9 @@ public class Card {
     this.player = player;
   }
 
+  public Card (SuitEnum suit, int number){
+    this.suit = suit;
+    this.number = number;
+  }
+
 }

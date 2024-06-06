@@ -21,6 +21,7 @@ public class SimpleUiController {
     @FXML
     public Label label;
 
+    //Name of the variable the name of the id?
     @FXML
     public Button button;
 
@@ -29,10 +30,10 @@ public class SimpleUiController {
         this.hostServices = hostServices;
     }
 
-    @FXML
-    public void initialize () {
-        this.button.setOnAction(actionEvent -> this.clientService.initialCallServer());//Sets the action for pressing the button
-    }
+//    @FXML
+//    public void initialize () {
+//        this.button.setOnAction(actionEvent -> this.clientService.initialCallServer());//Sets the action for pressing the button
+//    }
 
     @FXML
     public void setButtonText(String text,String col){
