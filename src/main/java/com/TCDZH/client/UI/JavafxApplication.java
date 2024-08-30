@@ -32,12 +32,12 @@ public class JavafxApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        this.context.publishEvent(new StageReadyEvent(primaryStage));//this broadcasts the stage so that any part of the code
+        this.context. publishEvent(new StageReadyEvent(primaryStage));//this broadcasts the stage so that any part of the code
                                                                     //that wants to use the stage needs only to listen for this event and it will get the stage
     }
 
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         this.context.close();
         Platform.exit();
     }

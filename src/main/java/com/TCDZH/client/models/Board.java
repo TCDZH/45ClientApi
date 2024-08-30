@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Board {
 
-  private ArrayList<Card> pile;
+  private ArrayList<Card> pile = new ArrayList<>();
 
   //Needed for calculation on if the card can be played or not, sent by start game and end round function
   private SuitEnum trump;
@@ -19,7 +19,7 @@ public class Board {
 
   //working soloution is to send the number of joined players in the start game function, iterates through to that number adding items to the map with a score of 0
   //when hands are won the scoreboard is updated using the player number, have functionality for user names? probs not
-  private HashMap<String, Integer> scoreBoard;
+  private HashMap<String, Integer> scoreBoard = new HashMap<>();
 
   //Whose turn it is / who can play a card, have the logic for game turn in the card playable function?
   private int gameTurn;

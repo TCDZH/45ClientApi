@@ -25,6 +25,13 @@ public class Card {
     this.player = player;
   }
 
+  public Card (ServerCard serverCard){
+    this.suit = serverCard.getSuit();
+    this.number = serverCard.getNumber();
+    this.power = serverCard.getPower();
+    this.player = serverCard.getPlayer();
+  }
+
   public Card (SuitEnum suit, int number){
     this.suit = suit;
     this.number = number;

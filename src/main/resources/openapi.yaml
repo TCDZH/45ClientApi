@@ -135,12 +135,12 @@ paths:
 
       parameters:
         - name: trump
-          in: query
+          in: path
           type: string
           required: true
 
         - name: playerCount
-          in: query
+          in: path
           type: integer
           required: true
 

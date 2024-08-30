@@ -20,8 +20,13 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
     private final Resource fxml;
     private final ApplicationContext applicationContext;
 
+
+    private Stage stage;
+    private Parent root;
+    private Scene scene;
+
     public StageListener(@Value("${spring.application.ui.title}") String applicationTitle,
-                         @Value("classpath:/ui.fxml") Resource fxml, ApplicationContext applicationContext) {
+                         @Value("classpath:/templates/StartScreen.fxml") Resource fxml, ApplicationContext applicationContext) {
         this.applicationTitle = applicationTitle;
         this.fxml = fxml;
         this.applicationContext = applicationContext;
@@ -32,12 +37,12 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
         try {
             //Listens for the stage ready event to be published (the one that contains the stage)
             //Setting up the stage using the fxml
-            Stage stage = stageReadyEvent.getStage();
+            stage = stageReadyEvent.getStage();
             URL url = fxml.getURL();
             FXMLLoader fxmlLoader = new FXMLLoader(url);
             fxmlLoader.setControllerFactory(applicationContext::getBean); //This is the only line im confused about
-            Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 600, 600);
+            root = fxmlLoader.load();
+            scene = new Scene(root, 640, 400);
             stage.setScene(scene);
             stage.setTitle(this.applicationTitle);
             stage.show();
@@ -45,4 +50,5 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
             throw new RuntimeException(e);
         }
     }
+
 }

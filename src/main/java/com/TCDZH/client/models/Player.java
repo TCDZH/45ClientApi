@@ -26,6 +26,11 @@ public class Player {
     }
   }
 
+  public void removeCardFromHand(Card card){
+    hand.remove(card);
+  }
+
+
   public Player(){
     this.score = 0;
     this.hand = new ArrayList<>();

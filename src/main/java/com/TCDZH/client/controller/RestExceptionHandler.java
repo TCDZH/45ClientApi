@@ -1,9 +1,11 @@
 package com.TCDZH.client.controller;
 
+import com.TCDZH.client.UI.StartScreenController;
 import com.TCDZH.client.exceptions.GameNotFoundExcecption;
 import com.TCDZH.client.exceptions.ServerErrorException;
 import com.TCDZH.client.exceptions.ServiceException;
 import com.TCDZH.client.service.GameConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +27,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
+  @Autowired
+  StartScreenController startScreenController;
+
   @Override
   protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
       final HttpRequestMethodNotSupportedException exception, final HttpHeaders headers,
@@ -34,7 +39,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(GameNotFoundExcecption.class)
   public void handleInvalidGameIdException(GameNotFoundExcecption exception){
-    //TODO: UI method to display on the screen that the game Id is invalid / not found
+    startScreenController.showGameIdNotValid();
   }
 
   @ResponseBody

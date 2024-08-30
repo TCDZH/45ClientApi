@@ -1,0 +1,82 @@
+Java 45 notes
+
+Find out what a renege
+
+Project consists of 3 main components
+- Server side networking and logic
+- Client side networking and logic
+- Client side UI
+
+Current actions
+- The logic for starting the game manually, any player can do it in theory
+    - Need to make a change to the api for the server, add a controller for that endpoint, then add a service function that will send off the start game early, should be fine
+- Wonder when Ill actually get round to testing this thing
+- Containerise the server and client to test on docker? - talk to Sean and see how he did it with the 2 agents?
+- Find way to start on random port for client
+
+Trump Card / Led card rules
+- The trump card is revealed at the start of the game, and remains until the game is over
+- The led card is the first card played at the start of the trick
+- The trump suit has a 3x multiplier, while the led suit has a 2x
+- Players must always follow the suit of the led card or play a trump card (if they can, if a player has neither then they can play any card)
+ Client Side UI
+- Have 2 (maybe 4, end screen?, Waiting for players screen?) main screens: the starting screen (create game and join game buttons) and the main screen (needs some designing)
+- Need to do some learning on Fx before I really know what to plan
+- REH modifies the UI? Back to start screen on bad ones?
+- All the cards in your hand as big buttons (this will allow the player to click on the card to play it, that or have the buttons just above or below the card)
+
+Config:
+- Will need to have a config file that contains the address of the server and potentially other information
+- Have it stored in application.yml file and loaded into the service class as a bean?
+
+Thoughts
+- When add card request, checks to see if the players address matches the playerNo saved? To protect against requests from outside sources messing up the game ?
+- Potentially have an option for public or private games, client can get a list of all public game Ids so they can join random games
+- Will have to figure out how the order of the end hand/round/game will work on the client side
+- Will need to add in rules for the best trump extra 5 points
+- Need to work out the rules for the steal (will just be another if statment at the start of the round, but will probably involve a new swagger path), when card is stolen replace it with an image of the suit type
+
+Paths for client - all of these will be broadcast to all the players in the game
+- /add_card - when players receive this, this is when they add card to their board
+- /end-hand
+- /end-round
+- /end-game
+- /start-game
+- /take-trump? - for when the trump card is dealt as an ace, will have to keep track of which player is the dealer to decide which player to give the ace to,
+
+Testing strategy
+- Current plan is to write unit tests (and maybe integration tests if I want to figure out wiremock feature files) once the each of the components is deemed finished
+- This will hopefully reveal issues before the added complexity of the client is introduced
+
+Different scenarios for card playable
+- If have led, must play
+- If have trump don’t have to
+- Have trump - play trump - True
+- Have trump, play normal card - True
+- Have trump, play led card - True
+- Have led card, play led card - True
+- Have led card, don’t play lead card - Think false
+- Dont have led or trump, Play normal card - True
+
+Power calculation notes
+- Main issue now is difference in ranking between trump and not
+- In colour groups 2 -10 are the same
+- In trump, Ace, 5, and jack are all moved
+- Ranges
+    - Nothing 1-13
+    - Led 18-182
+    - Trump 36 - 612
+
+List of UI functions:
+- Place cards from board onto UI
+- Place cards from hand onto UI
+- Clear all cards from the board
+- Remove played card from hand
+- Text popup to say that the card is not playable
+-
+- Place a marker next to the winning card
+-
+- Switch UI to end screen
+- Switch UI to to the waiting screen (same wating screen for creator and joiner, just display game ID, but joiner has start game button)
+
+

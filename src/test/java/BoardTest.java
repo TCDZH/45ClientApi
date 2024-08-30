@@ -41,7 +41,6 @@ public class BoardTest {
   @Test
   void haveTrumpPlayTrump(){
 
-
     hand.add(trumpCard);
 
     assertTrue(board.cardPlayable(trumpCard,hand,1));

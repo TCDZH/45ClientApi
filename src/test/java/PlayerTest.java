@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.TCDZH.api.client.domain.NewHand;
 import com.TCDZH.api.client.domain.ServerCard;
 import com.TCDZH.api.client.domain.SuitEnum;
+import com.TCDZH.client.models.Card;
 import com.TCDZH.client.models.Player;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
@@ -30,6 +32,18 @@ public class PlayerTest {
 
     assertEquals(2, testPlayer.getHand().size());
 
+  }
+
+
+  @Test
+  void handReovalTest(){
+    Card card = new Card(SuitEnum.DIAMOND,10);
+    ArrayList<Card> hand = new ArrayList<>();
+    hand.add(card);
+    Card card2 = new Card(SuitEnum.DIAMOND, 10);
+
+    hand.remove(card2);
+    assertTrue(hand.isEmpty());
   }
 
 }
